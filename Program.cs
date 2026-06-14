@@ -68,47 +68,47 @@ class Program
             // ==========================
             // CUSTOMER INPUT
             // ==========================
-            Console.Write("\nEnter Customer ID: ");
-            int customerId = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("Enter Customer Name: ");
+            Console.Write("\nEnter Customer Name: ");
             string customerName = Console.ReadLine()!;
 
             Console.Write("Enter Customer Age: ");
-            int customerAge = Convert.ToInt32(Console.ReadLine());
+            int customerAge =
+                Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Enter Customer CNIC (13 Digits): ");
+            string cnic =
+                Console.ReadLine()!;
+
+            int customerId =
+                Customer.GenerateCustomerID(
+                    customerAge,
+                    cnic,
+                    choice);
+
+            Console.WriteLine(
+                "\nGenerated Customer ID: "
+                + customerId);
 
             Customer customer =
-                new Customer(customerId,
-                             customerName,
-                             customerAge);
+                new Customer(
+                    customerId,
+                    customerName,
+                    customerAge,
+                    cnic);
 
             // ==========================
             // MANAGER INPUT
             // ==========================
-            Console.Write("\nEnter Manager Name: ");
-            string managerName = Console.ReadLine()!;
-
-            Console.Write("Enter Manager Age: ");
-            int managerAge = Convert.ToInt32(Console.ReadLine());
-
             Manager manager =
-                new Manager(managerName, managerAge);
+             new Manager("Ali Rehman", 27);
 
             hotel.AddEmployee(manager);
 
             // ==========================
             // RECEPTIONIST INPUT
             // ==========================
-            Console.Write("\nEnter Receptionist Name: ");
-            string receptionistName = Console.ReadLine()!;
-
-            Console.Write("Enter Receptionist Age: ");
-            int receptionistAge =
-                Convert.ToInt32(Console.ReadLine());
-
             Receptionist receptionist =
-                new Receptionist(receptionistName,
-                                 receptionistAge);
+     new Receptionist("Fatima", 25);
 
             hotel.AddEmployee(receptionist);
 
@@ -139,7 +139,9 @@ class Program
             double payment =
                 Convert.ToDouble(Console.ReadLine());
 
-            customer.MakePayment(payment, totalBill);
+            customer.MakePayment(
+                payment,
+                totalBill);
 
             // ==========================
             // DISPLAY DETAILS
@@ -166,6 +168,8 @@ class Program
             Console.WriteLine("\nError: "
                               + ex.Message);
         }
+
+        Console.WriteLine("\nPress any key to exit...");
         Console.ReadKey();
     }
 }

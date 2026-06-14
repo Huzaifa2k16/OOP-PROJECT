@@ -20,10 +20,11 @@ abstract class Person
         get { return age; }
         set
         {
-            if (value > 0)
+            if (value >= 20)
                 age = value;
             else
-                throw new Exception("Age must be greater than 0.");
+                throw new Exception(
+                    "Customer age must be 20 or above for registration.");
         }
     }
 
@@ -50,6 +51,7 @@ interface IPayment
 class Customer : Person, IPayment
 {
     private int customerID;
+    private string cnic = "";
 
     public int CustomerID
     {
@@ -57,13 +59,50 @@ class Customer : Person, IPayment
         set { customerID = value; }
     }
 
+    public string CNIC
+    {
+        get { return cnic; }
+        set
+        {
+            if (value.Length == 13)
+                cnic = value;
+            else
+                throw new Exception(
+                    "CNIC must contain exactly 13 digits.");
+        }
+    }
+
     public static int TotalCustomers = 0;
 
-    public Customer(int id, string name, int age)
+    public Customer(
+        int id,
+        string name,
+        int age,
+        string cnic)
         : base(name, age)
     {
         CustomerID = id;
+        CNIC = cnic;
         TotalCustomers++;
+    }
+
+    public static int GenerateCustomerID(
+        int age,
+        string cnic,
+        int roomCategory)
+    {
+        string lastFourDigits =
+            cnic.Substring(cnic.Length - 4);
+
+        int cnicPart =
+            Convert.ToInt32(lastFourDigits);
+
+        int generatedID =
+            (age * 1000)
+            + cnicPart
+            + (roomCategory * 100);
+
+        return generatedID;
     }
 
     public override void DisplayInfo()
@@ -72,6 +111,7 @@ class Customer : Person, IPayment
         Console.WriteLine("Customer ID: " + CustomerID);
         Console.WriteLine("Customer Name: " + Name);
         Console.WriteLine("Customer Age: " + Age);
+        Console.WriteLine("Customer CNIC: " + CNIC);
     }
 
     public void MakePayment(double amount, double bill)
@@ -81,7 +121,8 @@ class Customer : Person, IPayment
         if (amount < bill)
         {
             Console.WriteLine("Insufficient Payment!");
-            Console.WriteLine("Remaining Amount: Rs. " + (bill - amount));
+            Console.WriteLine("Remaining Amount: Rs. "
+                              + (bill - amount));
         }
         else if (amount == bill)
         {
@@ -95,11 +136,12 @@ class Customer : Person, IPayment
             Console.WriteLine("Payment Received Successfully.");
             Console.WriteLine("Total Bill: Rs. " + bill);
             Console.WriteLine("Amount Paid: Rs. " + amount);
-            Console.WriteLine("Change Returned By Receptionist: Rs. " + change);
+            Console.WriteLine(
+                "Change Returned By Receptionist: Rs. "
+                + change);
         }
     }
 }
-
 // ==========================
 // EMPLOYEE
 // ==========================
