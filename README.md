@@ -170,17 +170,6 @@ Through this project, we gained practical experience with:
 - Console-Based Application Development
 
 ---
-
-## 👨‍💻 Team Members
-
-| Name | Registration No. | Responsibilities |
-|------|------------------|------------------|
-| **Muhammad Huzaifa Siddiqui** *(Team Lead)* | **CS251331** | UML Diagrams, Abstract Class, Interface, Customer Class, Employee Class |
-| **Syed Ammar Ali Shah** | **CS251324** | Manager, Receptionist, Room, Booking, Hotel Classes |
-| **Ayan Akhtar** | **CS251009** | Main Program (`Program.cs`), Console Workflow |
-
----
-
 ## 📚 Future Improvements
 
 - Database Integration (SQL Server/MySQL)
